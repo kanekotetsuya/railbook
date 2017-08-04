@@ -1,0 +1,5 @@
+<div><%= @book.price %>円
+  <% if @book.price >= 2000 %>
+    <%= image_tag 'expensive.gif' %>
+  <% end %>
+</div>

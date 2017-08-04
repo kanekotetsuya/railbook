@@ -30,12 +30,6 @@ class ViewController < ApplicationController
     @authors = Author.all
   end
 
-  def select_tag
-  end
-
-  def select_tag2
-  end
-
   def col_select2
     @book = Book.new(publish: '技術評論社')
     @books = Book.select(:publish).distinct
@@ -58,4 +52,36 @@ class ViewController < ApplicationController
     @user = User.find(1)
   end
 
+  def conc
+    @book = Book.find(1)
+  end
+
+  def multi
+    render layout: 'layout'
+  end
+
+  def nest
+    @msg = '今日も良い天気です'
+    render layout: 'child'
+  end
+
+  def partial_basic
+    @book = Book.find(1)
+  end
+
+  def partial_param
+    @book = Book.find(1)
+  end
+
+  def partial_col
+    @books = Book.all
+  end
+
+  def partial_spacer
+    @books = Book.all
+  end
+
 end
+
+
+

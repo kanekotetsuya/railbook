@@ -6,6 +6,16 @@ Rails.application.routes.draw do
   resources :users
   resources :books
 
+  # 第2章
+  get 'hello/index', to: 'hello#index'
+  get 'hoge/piyo', to: 'hello#index'
+  get 'hello/index'
+  get 'hello/view'
+  get 'hello/nothing'
+  get 'hello/app_var'
+  get 'hello/list'
+
+  # 第4章
   get 'view/keyword'
   post 'keyword/search'
   get 'view/form_tag'
@@ -22,5 +32,34 @@ Rails.application.routes.draw do
   get 'view/dat_select'
   get 'view/col_radio'
   get 'view/fields'
+  get 'view/simple_format'
+  get 'view/truncate'
+  get 'view/excerpt'
+  get 'view/highlight'
+  get 'view/conc'
+  get 'view/sanitize'
+  get 'view/format'
+  get 'view/link'
+  get 'view/linkif'
+  get 'login/index'
+  get 'login/info'
+  get 'view/current'
+  get 'view/detail'
+  get 'view/mailto'
+  get 'view/image_tag'
+  get 'view/audio'
+  get 'view/video'
+  get 'view/helper'
+  get 'view/helper2'
+  get 'view/helper3'
+  get 'view/multi'
+  get 'view/relation'
+  get 'view/download'
+  get 'view/quest'
+  get 'view/nest'
+  get 'view/partial_basic'
+  get 'view/partial_param'
+  get 'view/partial_col'
+  get 'view/partial_spacer'
 
 end
