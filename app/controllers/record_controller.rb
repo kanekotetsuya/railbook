@@ -119,8 +119,56 @@ class RecordController < ApplicationController
     @books = Book.group(:publish).average(:price)
   end
 
+  def update_all
+    cnt = Book.where(publish: '技術評論社').update_all(publish: 'Gihyo')
+    render plain: "#{cnt}件のデータを更新しました。"
+  end
 
+  def update_all2
+    cnt = Book.order(:publish).limit(5).update_all('price = price * 0.8')
+    render plain: "#{cnt}件のデータ"
+  end
 
+  def destroy_all
+    Book.where.not(publish: '技術評論社').destroy_all
+    render plain: '削除完了'
+  end
+
+  def transact
+    Book.transaction do
+      b1 = Book.new({isbn: '978-4-7741-5067-3', title: 'Rubyポケットリファレンス', price: 2580, publish: '技術評論社', published: '2017-04-17'})
+      b1.save!
+      # raise '例外発生:処理はキャンセルされました。'
+      b2 = Book.new({isbn: '978-4-7741-5067-5', title: 'Tomcatポケットリファレンス', price: 2500, publish: '技術評論社', published: '2015-05-10'})
+      b2.save!
+    end
+    render plain: 'トランザクションは成功しました。'
+    rescue => e
+    render plain: e.message
+  end
+
+  def enum_rec
+    @review = Review.find(1)
+    @review.published!
+    render plain: 'ステータス：' + @review.status
+  end
+
+  #検索フォームを表示する
+  def keywd
+    @search = SearchKeyword.new
+  end
+
+  #検索ボタンがキュリックされた場合に呼び出されるアクション
+  def keywd_process
+    #入力値を元にモデルオブジェクトを生成
+    @search = SearchKeyword.new(params.require(:search_keyword).permit(:keyword))
+    #検証を実施（正常時はキーワードを、エラー時はエラーメッセージを表示）
+    if @search.valid?
+      render plain: @search.keyword
+    else
+      render plain: @search.errors.full_message[0]
+    end
+  end
 
 end
 
