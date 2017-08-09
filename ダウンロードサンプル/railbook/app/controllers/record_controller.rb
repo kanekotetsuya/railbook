@@ -16,7 +16,7 @@ class RecordController < ApplicationController
 
   def where
     @books = Book.where(publish: '技術評論社')
-    
+
     # whereメソッドでのさまざまな条件式
     #@books = Book.where(publish: '技術評論社', price: 2980)
     #@books = Book.where(published: '2016-06-01'..'2016-12-31')
@@ -231,7 +231,7 @@ end
     @search = SearchKeyword.new
   end
 
-  def keywd_process   
+  def keywd_process
     @search = SearchKeyword.new(params.require(:search_keyword).permit(:keyword))
 
     if @search.valid?
@@ -306,5 +306,9 @@ end
   def attr
     @book = Book.find(1)
     render plain: @book.price.class
+  end
+
+  def belongs
+    @review = Review.find(3)
   end
 end

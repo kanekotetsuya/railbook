@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801103405) do
+ActiveRecord::Schema.define(version: 20170809051839) do
+
+  create_table "author_books", id: false, force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.integer "book_id", null: false
+  end
 
   create_table "authors", force: :cascade do |t|
     t.integer "user_id"
@@ -30,14 +35,14 @@ ActiveRecord::Schema.define(version: 20170801103405) do
   end
 
   create_table "books", force: :cascade do |t|
-    t.string "isbn"
+    t.string "isbn_code"
     t.string "title"
     t.integer "price"
-    t.string "publish"
     t.date "published"
-    t.boolean "dl"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "author"
+    t.index ["title"], name: "index_books_on_title"
   end
 
   create_table "fan_comments", force: :cascade do |t|
@@ -45,6 +50,14 @@ ActiveRecord::Schema.define(version: 20170801103405) do
     t.string "name"
     t.text "body"
     t.boolean "deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "lock_version", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170801103405) do
   create_table "reviews", force: :cascade do |t|
     t.integer "book_id"
     t.integer "user_id"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -75,7 +88,7 @@ ActiveRecord::Schema.define(version: 20170801103405) do
     t.string "email"
     t.boolean "dm"
     t.string "roles"
-    t.integer "reviews_count"
+    t.integer "reviews_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
