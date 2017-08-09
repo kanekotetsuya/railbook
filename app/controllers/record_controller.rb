@@ -158,7 +158,7 @@ class RecordController < ApplicationController
     @search = SearchKeyword.new
   end
 
-  #検索ボタンがキュリックされた場合に呼び出されるアクション
+  #検索ボタンがクリックされた場合に呼び出されるアクション
   def keywd_process
     #入力値を元にモデルオブジェクトを生成
     @search = SearchKeyword.new(params.require(:search_keyword).permit(:keyword))
@@ -168,6 +168,50 @@ class RecordController < ApplicationController
     else
       render plain: @search.errors.full_message[0]
     end
+  end
+
+  def belongs
+    @review = Review.find(3)
+  end
+
+  def has_many_through
+    @user = User.find_by(username: 'isatou')
+  end
+
+  def cache_counter
+    @user = User.find(1)
+    render plain: @user.reviews.size
+  end
+
+  def memorize
+    @book = Book.find(1)
+    # 書籍情報に関連するメモを登録
+    @memo = @book.memos.build({ body: 'あとで買う' })
+    if @memo.save
+      render plain: 'メモを作成しました。'
+    else
+      render plain: @memo.errors.full_message[0]
+  end
+
+  def assoc_join
+    @books = Book.joins(:reviews, :authors).order('books,title, reviews.updated_at').select('books.*, reiews.body, author.name')
+  end
+
+  def assoc_join2
+    @books = Book.joins(reviews: :user).select('books.*, reviews.body, users.username')
+  end
+
+  def assoc_join3
+    @books = Book.joins('LEFT OUTER JOIN reviews ON reviews.book_id = books.id').select('books.*, reviews.body')
+  end
+
+  def assoc_join4
+    @books = Book.left_outer_joins(:reviews).select('books.*, reviews.body')
+    render 'assoc_join3'
+  end
+
+  def assoc_include
+    @books = Book.includes(:reviews).all
   end
 
 end
