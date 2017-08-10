@@ -1,9 +1,7 @@
 class HelloController < ApplicationController
 
-  # フィルターによるフォーム認証の実装
-  # before_action :check_logined, only: :view
-
-  # skip_before_action :check_logined, only: :list
+  # viewアクションにのみ適用されるbeforeフィルターcheck_loginedを登録
+  before_action :check_logined, only: :view
 
   def index
     render plain: 'こんにちは、世界！'
@@ -22,21 +20,4 @@ class HelloController < ApplicationController
     render plain: MY_APP['logo']['source']
   end
 
-  private
-    def check_logined
-      if session[:usr] then 
-
-        begin
-          @usr = User.find(session[:usr])
-
-        rescue ActiveRecord::RecordNotFound
-          reset_session
-        end
-      end 
-
-      unless @usr 
-        flash[:referer] = request.fullpath
-        redirect_to controller: :login, action: :index
-      end
-    end
 end

@@ -97,6 +97,24 @@ Rails.application.routes.draw do
   get 'record/has_many_through'
   get 'record/assoc_include'
 
+  # 第6章
+  get 'ctrl/para/(:id)' => 'ctrl#para'
+  get 'ctrl/req_head2'
+  get 'ctrl/upload'
+  post 'ctrl/upload_procces'
+  get 'ctrl/updb(/:id)' => 'ctrl#updb'
+  patch 'ctrl/updb_procces(/:id)' => 'ctrl#updb_procces'
+  get 'ctrl/test'
+  get 'ctrl/show_photo(/:id)' => 'ctrl#show_photo'
+  get 'ctrl/get_xml'
+  get 'ctrl/get_json'
+  get 'ctrl/cookie'
+  post 'ctrl/cookie_rec'
+  get 'ctrl/index'
+  get 'login/index'
+  post 'login/auth'
+  get 'login/logout'
+
 end
 
 
