@@ -58,3 +58,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pry-rails'
 gem 'activemodel-serializers-xml'
 gem 'bcrypt', '~> 3.1.7'
+gem 'jquery-rails'

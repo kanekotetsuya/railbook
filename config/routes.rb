@@ -115,6 +115,12 @@ Rails.application.routes.draw do
   post 'login/auth'
   get 'login/logout'
 
+  # 第9章
+  get 'ajax/index'
+  get 'ajax/upanel'
+  get 'ajax/search'
+  post 'ajax/result'
+
 end
 
 

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :check_login
+  # before_action :check_login
   rescue_from ActiveRecord::RecordNotFound, with: :id_invalid
 
 
